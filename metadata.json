@@ -1,0 +1,6 @@
+{
+  "name": "GradeMed",
+  "description": "GradeMed - Sistema limpo para geração de grade de horários de atendimentos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
