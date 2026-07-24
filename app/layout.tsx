@@ -5,6 +5,9 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'GradeMed',
   description: 'GradeMed - Sistema limpo para geração de grade de horários de atendimentos.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
@@ -13,6 +16,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
