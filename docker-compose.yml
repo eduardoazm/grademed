@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  grademed:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: grademed
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - grademed-network
+
+networks:
+  grademed-network:
+    driver: bridge
