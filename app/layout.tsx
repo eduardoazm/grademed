@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" data-bs-theme="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +26,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         {/* Bootstrap Icons */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
       </head>
-      <body suppressHydrationWarning className="bg-light">
+      <body suppressHydrationWarning className="bg-dark text-light">
         {children}
         {/* html2pdf.js */}
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" strategy="afterInteractive" />

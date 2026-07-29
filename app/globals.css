@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --body-bg: #f8fafc;
-  --card-bg: #ffffff;
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --body-bg: #0b0f19;
+  --card-bg: #151c2c;
+  --card-border: #232d42;
 }
 
-body {
+html, body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  background-color: var(--body-bg);
-  color: #1e293b;
+  background-color: #0b0f19 !important;
+  color: #f1f5f9 !important;
   min-height: 100vh;
 }
 
 /* Custom Card Styles */
 .custom-card {
-  border: none;
+  border: 1px solid var(--card-border);
   border-radius: 0.85rem;
-  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  background: #ffffff;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  background: var(--card-bg);
 }
 
 .custom-card-header {
@@ -28,15 +28,28 @@ body {
   color: #ffffff;
   border-top-left-radius: 0.85rem !important;
   border-top-right-radius: 0.85rem !important;
+  border-bottom: 1px solid var(--card-border);
+}
+
+/* Form Controls Dark Adjustments */
+.form-control, .input-group-text {
+  background-color: #0b0f19 !important;
+  color: #f8fafc !important;
+  border-color: #232d42 !important;
+}
+
+.form-control:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25) !important;
 }
 
 /* Radio Option Cards */
 .calc-mode-radio .btn-check + .btn {
   border-radius: 0.6rem;
   font-weight: 600;
-  border: 1.5px solid #e2e8f0;
-  background-color: #f8fafc;
-  color: #475569;
+  border: 1.5px solid #232d42;
+  background-color: #0b0f19;
+  color: #94a3b8;
   transition: all 0.15s ease;
   display: flex;
   align-items: center;
@@ -45,27 +58,29 @@ body {
 }
 
 .calc-mode-radio .btn-check:checked + .btn {
-  border-color: #2563eb;
-  background-color: #eff6ff;
-  color: #1d4ed8;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+  border-color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.18);
+  color: #60a5fa;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
 .calc-mode-radio .btn-check + .btn:hover {
-  border-color: #cbd5e1;
-  background-color: #f1f5f9;
+  border-color: #334155;
+  background-color: #1e293b;
+  color: #e2e8f0;
 }
 
 /* Summary Card */
 .summary-card {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border: 1px solid #232d42;
   border-radius: 0.85rem;
   color: #ffffff;
 }
 
 .summary-box {
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem;
 }
 
@@ -89,23 +104,24 @@ body {
 }
 
 .schedule-table thead th {
-  background-color: #f1f5f9;
-  color: #334155;
+  background-color: #0b0f19 !important;
+  color: #94a3b8 !important;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #232d42 !important;
 }
 
 .schedule-table td {
   vertical-align: middle;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid #1e293b;
   font-size: 0.875rem;
+  color: #f1f5f9;
 }
 
 .schedule-table tbody tr:hover {
-  background-color: #f8fafc;
+  background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
 /* Fade-in Animation */

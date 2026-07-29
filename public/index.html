@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-vh-100 d-flex flex-column bg-light py-2 py-lg-3 px-2 px-md-3">
+<body class="min-vh-100 d-flex flex-column bg-dark text-light py-2 py-lg-3 px-2 px-md-3">
 
     <div class="container-fluid max-w-7xl mx-auto my-auto" style="max-width: 1280px;">
         <!-- COMPACT TOP HEADER -->
@@ -26,12 +26,12 @@
                     <i class="bi bi-activity fs-5"></i>
                 </div>
                 <div>
-                    <h1 class="h4 fw-bold text-dark mb-0" style="letter-spacing: -0.02em;">GradeMed</h1>
+                    <h1 class="h4 fw-bold text-white mb-0" style="letter-spacing: -0.02em;">GradeMed</h1>
                     <p class="text-muted small mb-0 d-none d-sm-block">Grade de Atendimentos</p>
                 </div>
             </div>
-            <span class="badge bg-light text-secondary border fw-medium px-2.5 py-1.5 rounded-pill" style="font-size: 0.75rem;">
-                <i class="bi bi-clock me-1"></i> HH:mm
+            <span class="badge bg-dark-subtle text-light border border-secondary fw-medium px-2.5 py-1.5 rounded-pill" style="font-size: 0.75rem;">
+                <i class="bi bi-clock me-1 text-primary"></i> HH:mm
             </span>
         </header>
 
@@ -78,11 +78,11 @@
                             <!-- CAMPOS DE HORÁRIO -->
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <label for="horaInicio" class="form-label fw-bold text-dark small mb-1">Início:</label>
+                                    <label for="horaInicio" class="form-label fw-bold text-light small mb-1">Início:</label>
                                     <input type="time" id="horaInicio" class="form-control form-control-sm text-center fw-bold" value="00:00" required>
                                 </div>
                                 <div class="col-6">
-                                    <label for="horaFim" class="form-label fw-bold text-dark small mb-1">Término:</label>
+                                    <label for="horaFim" class="form-label fw-bold text-light small mb-1">Término:</label>
                                     <input type="time" id="horaFim" class="form-control form-control-sm text-center fw-bold" value="00:00" required>
                                 </div>
                             </div>
@@ -90,17 +90,17 @@
                             <!-- CAMPOS DINÂMICOS -->
                             <div>
                                 <div id="grupoQuantidade">
-                                    <label for="quantidadeInput" class="form-label fw-bold text-dark small mb-1">Quantidade de Atendimentos:</label>
+                                    <label for="quantidadeInput" class="form-label fw-bold text-light small mb-1">Quantidade de Atendimentos:</label>
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text bg-light"><i class="bi bi-person-fill"></i></span>
+                                        <span class="input-group-text bg-dark text-light border-secondary"><i class="bi bi-person-fill"></i></span>
                                         <input type="number" id="quantidadeInput" class="form-control form-control-sm fw-bold" min="1" placeholder="Ex: 4" value="4" required>
                                     </div>
                                 </div>
 
                                 <div id="grupoIntervalo" class="d-none">
-                                    <label for="intervaloInput" class="form-label fw-bold text-dark small mb-1">Intervalo (em minutos):</label>
+                                    <label for="intervaloInput" class="form-label fw-bold text-light small mb-1">Intervalo (em minutos):</label>
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text bg-light"><i class="bi bi-hourglass-split"></i></span>
+                                        <span class="input-group-text bg-dark text-light border-secondary"><i class="bi bi-hourglass-split"></i></span>
                                         <input type="number" id="intervaloInput" class="form-control form-control-sm fw-bold" min="1" placeholder="Ex: 17" value="">
                                     </div>
                                 </div>
@@ -221,14 +221,14 @@
                                     <h3 class="h6 mb-0 fw-bold">Horários</h3>
                                 </div>
                                 <div class="no-print">
-                                    <button id="btnImprimir" type="button" class="btn btn-xs btn-light fw-semibold border shadow-sm py-1 px-2.5" style="font-size: 0.8rem;">
+                                    <button id="btnImprimir" type="button" class="btn btn-xs btn-outline-light fw-semibold py-1 px-2.5" style="font-size: 0.8rem;">
                                         <i class="bi bi-printer-fill me-1 text-primary"></i> Imprimir
                                     </button>
                                 </div>
                             </div>
                             <div class="card-body p-0 flex-grow-1 overflow-auto" style="max-height: calc(100vh - 270px); min-height: 260px;">
                                 <table class="table table-hover schedule-table mb-0 align-middle">
-                                    <thead class="sticky-top bg-light shadow-sm">
+                                    <thead class="sticky-top bg-dark shadow-sm">
                                         <tr>
                                             <th class="py-2 px-3" style="width: 15%;">Nº</th>
                                             <th class="py-2 px-3" style="width: 35%;">Início</th>
@@ -250,10 +250,7 @@
                             <div class="text-primary mb-3">
                                 <i class="bi bi-calendar-check fs-1"></i>
                             </div>
-                            <h3 class="h6 fw-bold text-dark mb-1">Aguardando Parâmetros</h3>
-                            <p class="text-muted small mb-0 max-w-sm mx-auto" style="max-width: 320px;">
-                                Preencha os horários à esquerda e clique em <strong>CALCULAR GRADE</strong> para visualizar a agenda completa nesta tela.
-                            </p>
+                            <h3 class="h6 fw-bold text-light mb-1">Aguardando Parâmetros</h3>
                         </div>
                     </div>
 
@@ -266,8 +263,8 @@
     <!-- MODAL BOOTSTRAP DE CONFIRMAÇÃO DE AJUSTE -->
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem; overflow: hidden;">
-                <div class="modal-header bg-dark text-white p-3">
+            <div class="modal-content border border-secondary shadow-lg bg-dark text-light" style="border-radius: 1rem; overflow: hidden;">
+                <div class="modal-header bg-dark-subtle text-white p-3 border-bottom border-secondary">
                     <div class="d-flex align-items-center gap-2">
                         <div class="bg-warning text-dark rounded-circle p-1.5 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
                             <i class="bi bi-exclamation-triangle-fill fs-6"></i>
@@ -275,11 +272,11 @@
                         <h4 class="modal-title h6 fw-bold mb-0" id="confirmModalLabel">Ajuste de Horário Necessário</h4>
                     </div>
                 </div>
-                <div class="modal-body p-3 fs-6 text-secondary" id="confirmModalTexto">
+                <div class="modal-body p-3 fs-6 text-light" id="confirmModalTexto">
                     <!-- Texto dinâmico inserido via JavaScript -->
                 </div>
-                <div class="modal-footer bg-light p-2.5 border-top-0 d-flex gap-2">
-                    <button type="button" id="btnModalNao" class="btn btn-outline-secondary flex-grow-1 fw-bold">NÃO</button>
+                <div class="modal-footer bg-dark-subtle p-2.5 border-top border-secondary d-flex gap-2">
+                    <button type="button" id="btnModalNao" class="btn btn-outline-light flex-grow-1 fw-bold">NÃO</button>
                     <button type="button" id="btnModalSim" class="btn btn-primary flex-grow-1 fw-bold">SIM</button>
                 </div>
             </div>

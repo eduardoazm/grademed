@@ -342,9 +342,9 @@ function renderizarResultados(res) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td class="py-1.5 px-3"><span class="badge bg-primary text-white rounded-pill px-2.5 py-1">#${item.numero}</span></td>
-            <td class="py-1.5 px-3 fw-bold text-dark"><i class="bi bi-clock me-1 text-primary"></i> ${item.inicio}</td>
-            <td class="py-1.5 px-3 fw-bold text-dark"><i class="bi bi-clock-fill me-1 text-success"></i> ${item.fim}</td>
-            <td class="py-1.5 px-3 text-muted"><span class="badge bg-light text-dark border py-1 px-2">${res.intervalo} min</span></td>
+            <td class="py-1.5 px-3 fw-bold text-light"><i class="bi bi-clock me-1 text-primary"></i> ${item.inicio}</td>
+            <td class="py-1.5 px-3 fw-bold text-light"><i class="bi bi-clock-fill me-1 text-success"></i> ${item.fim}</td>
+            <td class="py-1.5 px-3 text-muted"><span class="badge bg-dark-subtle text-light border border-secondary py-1 px-2">${res.intervalo} min</span></td>
         `;
         tbody.appendChild(tr);
     });

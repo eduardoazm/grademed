@@ -244,7 +244,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-vh-100 d-flex flex-column bg-light py-2 py-lg-3 px-2 px-md-3">
+    <main className="min-vh-100 d-flex flex-column bg-dark text-light py-2 py-lg-3 px-2 px-md-3">
       <div className="container-fluid max-w-7xl mx-auto my-auto" style={{ maxWidth: '1280px' }}>
         
         {/* COMPACT TOP HEADER */}
@@ -254,12 +254,12 @@ export default function Home() {
               <i className="bi bi-activity fs-5"></i>
             </div>
             <div>
-              <h1 className="h4 fw-bold text-dark mb-0" style={{ letterSpacing: '-0.02em' }}>GradeMed</h1>
+              <h1 className="h4 fw-bold text-white mb-0" style={{ letterSpacing: '-0.02em' }}>GradeMed</h1>
               <p className="text-muted small mb-0 d-none d-sm-block">Grade de Atendimentos</p>
             </div>
           </div>
-          <span className="badge bg-light text-secondary border fw-medium px-2.5 py-1.5 rounded-pill" style={{ fontSize: '0.75rem' }}>
-            <i className="bi bi-clock me-1"></i> HH:mm
+          <span className="badge bg-dark-subtle text-light border border-secondary fw-medium px-2.5 py-1.5 rounded-pill" style={{ fontSize: '0.75rem' }}>
+            <i className="bi bi-clock me-1 text-primary"></i> HH:mm
           </span>
         </header>
 
@@ -330,7 +330,7 @@ export default function Home() {
                   {/* START & END TIME */}
                   <div className="row g-2">
                     <div className="col-6">
-                      <label htmlFor="horaInicio" className="form-label fw-bold text-dark small mb-1">
+                      <label htmlFor="horaInicio" className="form-label fw-bold text-light small mb-1">
                         Início:
                       </label>
                       <input
@@ -343,7 +343,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="col-6">
-                      <label htmlFor="horaFim" className="form-label fw-bold text-dark small mb-1">
+                      <label htmlFor="horaFim" className="form-label fw-bold text-light small mb-1">
                         Término:
                       </label>
                       <input
@@ -361,11 +361,11 @@ export default function Home() {
                   <div>
                     {modo === 'intervalo' ? (
                       <div>
-                        <label htmlFor="quantidadeInput" className="form-label fw-bold text-dark small mb-1">
+                        <label htmlFor="quantidadeInput" className="form-label fw-bold text-light small mb-1">
                           Quantidade de Atendimentos:
                         </label>
                         <div className="input-group input-group-sm">
-                          <span className="input-group-text bg-light"><i className="bi bi-person-fill"></i></span>
+                          <span className="input-group-text bg-dark text-light border-secondary"><i className="bi bi-person-fill"></i></span>
                           <input
                             type="number"
                             id="quantidadeInput"
@@ -380,11 +380,11 @@ export default function Home() {
                       </div>
                     ) : (
                       <div>
-                        <label htmlFor="intervaloInput" className="form-label fw-bold text-dark small mb-1">
+                        <label htmlFor="intervaloInput" className="form-label fw-bold text-light small mb-1">
                           Intervalo (em minutos):
                         </label>
                         <div className="input-group input-group-sm">
-                          <span className="input-group-text bg-light"><i className="bi bi-hourglass-split"></i></span>
+                          <span className="input-group-text bg-dark text-light border-secondary"><i className="bi bi-hourglass-split"></i></span>
                           <input
                             type="number"
                             id="intervaloInput"
@@ -521,7 +521,7 @@ export default function Home() {
                         <button
                           onClick={handlePrint}
                           type="button"
-                          className="btn btn-xs btn-light fw-semibold border shadow-sm py-1 px-2.5"
+                          className="btn btn-xs btn-outline-light fw-semibold py-1 px-2.5"
                           style={{ fontSize: '0.8rem' }}
                         >
                           <i className="bi bi-printer-fill me-1 text-primary"></i> Imprimir
@@ -532,7 +532,7 @@ export default function Home() {
                     {/* SCROLLABLE TABLE CONTAINER */}
                     <div className="card-body p-0 flex-grow-1 overflow-auto" style={{ maxHeight: 'calc(100vh - 270px)', minHeight: '260px' }}>
                       <table className="table table-hover schedule-table mb-0 align-middle">
-                        <thead className="sticky-top bg-light shadow-sm">
+                        <thead className="sticky-top bg-dark shadow-sm">
                           <tr>
                             <th className="py-2 px-3" style={{ width: '15%' }}>Nº</th>
                             <th className="py-2 px-3" style={{ width: '35%' }}>Início</th>
@@ -548,14 +548,14 @@ export default function Home() {
                                   #{item.numero}
                                 </span>
                               </td>
-                              <td className="py-1.5 px-3 fw-bold text-dark">
+                              <td className="py-1.5 px-3 fw-bold text-light">
                                 <i className="bi bi-clock me-1 text-primary"></i> {item.inicio}
                               </td>
-                              <td className="py-1.5 px-3 fw-bold text-dark">
+                              <td className="py-1.5 px-3 fw-bold text-light">
                                 <i className="bi bi-clock-fill me-1 text-success"></i> {item.fim}
                               </td>
                               <td className="py-1.5 px-3 text-muted">
-                                <span className="badge bg-light text-dark border py-1 px-2">
+                                <span className="badge bg-dark-subtle text-light border border-secondary py-1 px-2">
                                   {resumo.intervalo} min
                                 </span>
                               </td>
@@ -573,10 +573,7 @@ export default function Home() {
                     <div className="text-primary mb-3">
                       <i className="bi bi-calendar-check fs-1"></i>
                     </div>
-                    <h3 className="h6 fw-bold text-dark mb-1">Aguardando Parâmetros</h3>
-                    <p className="text-muted small mb-0 max-w-sm mx-auto" style={{ maxWidth: '320px' }}>
-                      Preencha os horários à esquerda e clique em <strong>CALCULAR GRADE</strong> para visualizar a agenda completa nesta tela.
-                    </p>
+                    <h3 className="h6 fw-bold text-light mb-1">Aguardando Parâmetros</h3>
                   </div>
                 </div>
               )}
@@ -592,8 +589,8 @@ export default function Home() {
         <>
           <div className="modal show d-block" tabIndex={-1} role="dialog">
             <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content border-0 shadow-lg" style={{ borderRadius: '1rem', overflow: 'hidden' }}>
-                <div className="modal-header bg-dark text-white p-3">
+              <div className="modal-content border border-secondary shadow-lg bg-dark text-light" style={{ borderRadius: '1rem', overflow: 'hidden' }}>
+                <div className="modal-header bg-dark-subtle text-white p-3 border-bottom border-secondary">
                   <div className="d-flex align-items-center gap-2">
                     <div className="bg-warning text-dark rounded-circle p-1.5 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px' }}>
                       <i className="bi bi-exclamation-triangle-fill fs-6"></i>
@@ -601,14 +598,14 @@ export default function Home() {
                     <h4 className="modal-title h6 fw-bold mb-0">Ajuste de Horário Necessário</h4>
                   </div>
                 </div>
-                <div className="modal-body p-3 fs-6 text-secondary" style={{ whiteSpace: 'pre-line' }}>
+                <div className="modal-body p-3 fs-6 text-light" style={{ whiteSpace: 'pre-line' }}>
                   {modalPending.mensagemText}
                 </div>
-                <div className="modal-footer bg-light p-2.5 border-top-0 d-flex gap-2">
+                <div className="modal-footer bg-dark-subtle p-2.5 border-top border-secondary d-flex gap-2">
                   <button
                     type="button"
                     onClick={() => handleModalChoice('NAO')}
-                    className="btn btn-outline-secondary flex-grow-1 fw-bold"
+                    className="btn btn-outline-light flex-grow-1 fw-bold"
                   >
                     NÃO
                   </button>
