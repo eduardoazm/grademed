@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { APP_VERSION } from '@/lib/version';
 
 interface GridItem {
   numero: number;
@@ -37,7 +38,7 @@ export default function Home() {
   const [modo, setModo] = useState<'intervalo' | 'quantidade'>('intervalo');
   const [horaInicio, setHoraInicio] = useState<string>('00:00');
   const [horaFim, setHoraFim] = useState<string>('00:00');
-  const [quantidadeInput, setQuantidadeInput] = useState<string>('4');
+  const [quantidadeInput, setQuantidadeInput] = useState<string>('0');
   const [intervaloInput, setIntervaloInput] = useState<string>('');
   const [erro, setErro] = useState<string | null>(null);
 
@@ -231,7 +232,7 @@ export default function Home() {
     setModo('intervalo');
     setHoraInicio('00:00');
     setHoraFim('00:00');
-    setQuantidadeInput('4');
+    setQuantidadeInput('0');
     setIntervaloInput('');
     setErro(null);
     setResumo(null);
@@ -244,39 +245,36 @@ export default function Home() {
   };
 
   return (
-    <main className="min-vh-100 d-flex flex-column bg-dark text-light py-2 py-lg-3 px-2 px-md-3">
-      <div className="container-fluid max-w-7xl mx-auto my-auto" style={{ maxWidth: '1280px' }}>
+    <main className="app-viewport d-flex flex-column py-2 py-lg-3 px-2 px-md-4">
+      <div className="container-fluid max-w-7xl mx-auto d-flex flex-column app-container w-100" style={{ maxWidth: '1280px' }}>
         
         {/* COMPACT TOP HEADER */}
-        <header className="d-flex align-items-center justify-content-between mb-2 mb-lg-3 no-print">
-          <div className="d-flex align-items-center gap-2">
-            <div className="bg-primary text-white rounded-3 p-2 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px' }}>
+        <header className="d-flex align-items-center justify-content-between mb-2 mb-lg-2.5 flex-shrink-0 no-print">
+          <div className="d-flex align-items-center gap-2.5">
+            <div className="bg-primary text-white rounded-1 p-2 d-flex align-items-center justify-content-center shadow-sm" style={{ width: '36px', height: '36px' }}>
               <i className="bi bi-activity fs-5"></i>
             </div>
-            <div>
-              <h1 className="h4 fw-bold text-white mb-0" style={{ letterSpacing: '-0.02em' }}>GradeMed</h1>
-              <p className="text-muted small mb-0 d-none d-sm-block">Grade de Atendimentos</p>
-            </div>
+            <h1 className="h4 fw-bold text-white mb-0" style={{ letterSpacing: '-0.02em', lineHeight: 1 }}>GradeMed</h1>
           </div>
-          <span className="badge bg-dark-subtle text-light border border-secondary fw-medium px-2.5 py-1.5 rounded-pill" style={{ fontSize: '0.75rem' }}>
+          <span className="badge bg-dark-subtle text-light border border-secondary-subtle fw-medium px-2.5 py-1.5 rounded-1" style={{ fontSize: '0.75rem' }}>
             <i className="bi bi-clock me-1 text-primary"></i> HH:mm
           </span>
         </header>
 
         {/* SINGLE SCREEN GRID LAYOUT */}
-        <div className="row g-2 g-lg-3 align-items-stretch">
+        <div className="row g-2 g-lg-3 app-main-row align-items-stretch">
           
           {/* LEFT COLUMN: COMPACT FORM */}
-          <div className="col-lg-5 col-xl-4 no-print">
-            <div className="custom-card h-100 d-flex flex-column">
-              <div className="custom-card-header py-2 px-3 d-flex align-items-center gap-2">
+          <div className="col-lg-5 col-xl-4 app-col-scroll no-print">
+            <div className="custom-card h-100 d-flex flex-column overflow-hidden">
+              <div className="custom-card-header py-2 px-3 d-flex align-items-center gap-2 flex-shrink-0">
                 <i className="bi bi-sliders text-primary"></i>
                 <h2 className="h6 mb-0 fw-bold">Parâmetros</h2>
               </div>
-              <div className="card-body p-3 d-flex flex-column justify-content-between">
+              <div className="card-body p-3 d-flex flex-column overflow-y-auto flex-grow-1">
                 
                 {erro && (
-                  <div className="alert alert-danger py-2 px-3 small mb-3 fade-in" role="alert">
+                  <div className="alert alert-danger-theme py-2 px-3 small mb-3 fade-in" role="alert">
                     <i className="bi bi-exclamation-triangle-fill me-1"></i>
                     {erro}
                   </div>
@@ -364,14 +362,14 @@ export default function Home() {
                         <label htmlFor="quantidadeInput" className="form-label fw-bold text-light small mb-1">
                           Quantidade de Atendimentos:
                         </label>
-                        <div className="input-group input-group-sm">
-                          <span className="input-group-text bg-dark text-light border-secondary"><i className="bi bi-person-fill"></i></span>
+                        <div className="input-group input-group-sm input-group-separated">
+                          <span className="input-group-text"><i className="bi bi-person-fill"></i></span>
                           <input
                             type="number"
                             id="quantidadeInput"
                             className="form-control form-control-sm fw-bold"
-                            min="1"
-                            placeholder="Ex: 4"
+                            min="0"
+                            placeholder="0"
                             value={quantidadeInput}
                             onChange={(e) => setQuantidadeInput(e.target.value)}
                             required
@@ -383,8 +381,8 @@ export default function Home() {
                         <label htmlFor="intervaloInput" className="form-label fw-bold text-light small mb-1">
                           Intervalo (em minutos):
                         </label>
-                        <div className="input-group input-group-sm">
-                          <span className="input-group-text bg-dark text-light border-secondary"><i className="bi bi-hourglass-split"></i></span>
+                        <div className="input-group input-group-sm input-group-separated">
+                          <span className="input-group-text"><i className="bi bi-hourglass-split"></i></span>
                           <input
                             type="number"
                             id="intervaloInput"
@@ -420,8 +418,8 @@ export default function Home() {
           </div>
 
           {/* RIGHT COLUMN: SUMMARY & COMPACT SCROLLABLE SCHEDULE TABLE */}
-          <div className="col-lg-7 col-xl-8">
-            <div id="areaExportacao" className="h-100 d-flex flex-column gap-2">
+          <div className="col-lg-7 col-xl-8 app-col-scroll">
+            <div id="areaExportacao" className="h-100 d-flex flex-column gap-2 overflow-hidden" style={{ minHeight: 0 }}>
               
               {/* PRINT HEADER */}
               <div className="print-header d-none">
@@ -432,34 +430,34 @@ export default function Home() {
               {resumo ? (
                 <>
                   {/* PROMINENT HIGHLIGHTS FOR MAIN RESULTS (INTERVALO E QUANTIDADE) */}
-                  <div className="row g-2 mb-1">
+                  <div className="row g-2 mb-1 flex-shrink-0">
                     <div className="col-6">
-                      <div className="p-2.5 rounded-3 bg-primary bg-gradient text-white shadow-sm border border-primary-subtle">
+                      <div className="p-2.5 rounded-1 highlight-card highlight-card-primary shadow-sm">
                         <div>
-                          <span className="badge bg-warning text-dark mb-1 px-1.5 py-0.5" style={{ fontSize: '0.7rem' }}>
-                            <i className="bi bi-star-fill"></i>
-                          </span>
-                          <div className="text-white-50 small fw-bold text-uppercase" style={{ fontSize: '0.7rem' }}>
-                            Intervalo
+                          <div className="d-flex align-items-center gap-1.5 mb-1">
+                            <i className="bi bi-stopwatch" style={{ fontSize: '0.85rem', color: '#16c6de' }}></i>
+                            <span className="small fw-bold text-uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.04em', color: '#16c6de' }}>
+                              Intervalo
+                            </span>
                           </div>
                           <div className="fs-4 fw-extrabold text-white lh-1">
-                            {resumo.intervalo} <span className="fs-6 fw-normal text-white-50">min</span>
+                            {resumo.intervalo} <span className="fs-6 fw-normal" style={{ color: '#8b99b5' }}>min</span>
                           </div>
                         </div>
                       </div>
                     </div>
 
                     <div className="col-6">
-                      <div className="p-2.5 rounded-3 bg-dark bg-gradient text-white shadow-sm border border-secondary">
+                      <div className="p-2.5 rounded-1 highlight-card highlight-card-secondary shadow-sm">
                         <div>
-                          <span className="badge bg-info text-dark mb-1 px-1.5 py-0.5" style={{ fontSize: '0.7rem' }}>
-                            <i className="bi bi-check-circle-fill"></i>
-                          </span>
-                          <div className="text-white-50 small fw-bold text-uppercase" style={{ fontSize: '0.7rem' }}>
-                            Quantidade
+                          <div className="d-flex align-items-center gap-1.5 mb-1">
+                            <i className="bi bi-people-fill" style={{ fontSize: '0.85rem', color: '#52c232' }}></i>
+                            <span className="small fw-bold text-uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.04em', color: '#52c232' }}>
+                              Quantidade
+                            </span>
                           </div>
-                          <div className="fs-4 fw-extrabold text-info lh-1">
-                            {resumo.quantidade} <span className="fs-6 fw-normal text-white-50">atend.</span>
+                          <div className="fs-4 fw-extrabold text-white lh-1">
+                            {resumo.quantidade} <span className="fs-6 fw-normal" style={{ color: '#8b99b5' }}>atend.</span>
                           </div>
                         </div>
                       </div>
@@ -467,12 +465,12 @@ export default function Home() {
                   </div>
 
                   {/* COMPACT SUMMARY CARD */}
-                  <div className="summary-card shadow-sm p-2 p-md-3">
+                  <div className="summary-card shadow-sm p-2 p-md-2.5 flex-shrink-0">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <span className="fw-bold text-white small">
-                        <i className="bi bi-pie-chart-fill me-1 text-info"></i> Resumo Completo
+                        <i className="bi bi-pie-chart-fill me-1" style={{ color: '#16c6de' }}></i> Resumo Completo
                       </span>
-                      <span className="badge bg-info text-dark font-monospace fw-bold px-2 py-1" style={{ fontSize: '0.75rem' }}>
+                      <span className="badge badge-info-theme font-monospace fw-bold px-2 py-1" style={{ fontSize: '0.75rem' }}>
                         Minutos Inteiros
                       </span>
                     </div>
@@ -496,25 +494,25 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="col">
-                        <div className="summary-box summary-box-highlight py-1 px-2 border-warning">
-                          <div className="label text-warning">Intervalo</div>
-                          <div className="value fs-6 text-warning">{resumo.intervalo}m</div>
+                        <div className="summary-box py-1 px-2" style={{ borderColor: 'rgba(160, 86, 1, 0.45)' }}>
+                          <div className="label" style={{ color: '#e68516' }}>Intervalo</div>
+                          <div className="value fs-6" style={{ color: '#e68516' }}>{resumo.intervalo}m</div>
                         </div>
                       </div>
                       <div className="col">
-                        <div className="summary-box summary-box-highlight py-1 px-2 border-info">
-                          <div className="label text-info">Qtd</div>
-                          <div className="value fs-6 text-info">{resumo.quantidade}</div>
+                        <div className="summary-box py-1 px-2" style={{ borderColor: 'rgba(1, 144, 163, 0.45)' }}>
+                          <div className="label" style={{ color: '#16c6de' }}>Qtd</div>
+                          <div className="value fs-6" style={{ color: '#16c6de' }}>{resumo.quantidade}</div>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* SCHEDULE TABLE CARD */}
-                  <div className="custom-card flex-grow-1 d-flex flex-column overflow-hidden">
-                    <div className="custom-card-header py-2 px-3 d-flex align-items-center justify-content-between">
+                  <div className="custom-card flex-grow-1 d-flex flex-column overflow-hidden" style={{ minHeight: 0 }}>
+                    <div className="custom-card-header py-2 px-3 d-flex align-items-center justify-content-between flex-shrink-0">
                       <div className="d-flex align-items-center gap-2">
-                        <i className="bi bi-table text-primary"></i>
+                        <i className="bi bi-table" style={{ color: '#7ba4ec' }}></i>
                         <h3 className="h6 mb-0 fw-bold">Horários</h3>
                       </div>
                       <div className="no-print">
@@ -524,15 +522,15 @@ export default function Home() {
                           className="btn btn-xs btn-outline-light fw-semibold py-1 px-2.5"
                           style={{ fontSize: '0.8rem' }}
                         >
-                          <i className="bi bi-printer-fill me-1 text-primary"></i> Imprimir
+                          <i className="bi bi-printer-fill me-1" style={{ color: '#7ba4ec' }}></i> Imprimir
                         </button>
                       </div>
                     </div>
                     
                     {/* SCROLLABLE TABLE CONTAINER */}
-                    <div className="card-body p-0 flex-grow-1 overflow-auto" style={{ maxHeight: 'calc(100vh - 270px)', minHeight: '260px' }}>
+                    <div className="card-body p-0 flex-grow-1 overflow-y-auto" style={{ minHeight: 0 }}>
                       <table className="table table-hover schedule-table mb-0 align-middle">
-                        <thead className="sticky-top bg-dark shadow-sm">
+                        <thead className="sticky-top shadow-sm" style={{ zIndex: 5 }}>
                           <tr>
                             <th className="py-2 px-3" style={{ width: '15%' }}>Nº</th>
                             <th className="py-2 px-3" style={{ width: '35%' }}>Início</th>
@@ -544,18 +542,18 @@ export default function Home() {
                           {resumo.grid.map((item) => (
                             <tr key={item.numero}>
                               <td className="py-1.5 px-3">
-                                <span className="badge bg-primary text-white rounded-pill px-2.5 py-1">
+                                <span className="badge badge-appointment text-white rounded-1 px-2 py-0.5 font-monospace">
                                   #{item.numero}
                                 </span>
                               </td>
                               <td className="py-1.5 px-3 fw-bold text-light">
-                                <i className="bi bi-clock me-1 text-primary"></i> {item.inicio}
+                                <i className="bi bi-clock me-1" style={{ color: '#7ba4ec' }}></i> {item.inicio}
                               </td>
                               <td className="py-1.5 px-3 fw-bold text-light">
-                                <i className="bi bi-clock-fill me-1 text-success"></i> {item.fim}
+                                <i className="bi bi-clock-fill me-1" style={{ color: '#52c232' }}></i> {item.fim}
                               </td>
-                              <td className="py-1.5 px-3 text-muted">
-                                <span className="badge bg-dark-subtle text-light border border-secondary py-1 px-2">
+                              <td className="py-1.5 px-3">
+                                <span className="badge bg-dark-subtle text-light border border-secondary-subtle py-1 px-2 rounded-1">
                                   {resumo.intervalo} min
                                 </span>
                               </td>
@@ -582,6 +580,17 @@ export default function Home() {
           </div>
 
         </div>
+
+        {/* FOOTER */}
+        <footer className="mt-3 mt-lg-4 pt-2 pb-2 text-center flex-shrink-0 no-print" style={{ fontSize: '0.75rem' }}>
+          <div className="d-flex justify-content-center align-items-center gap-2 text-secondary opacity-75">
+            <span className="fw-medium text-light-emphasis">GradeMed</span>
+            <span>•</span>
+            <span>2026</span>
+            <span>•</span>
+            <span className="font-monospace">v{APP_VERSION}</span>
+          </div>
+        </footer>
       </div>
 
       {/* CONFIRMATION MODAL */}
@@ -589,10 +598,10 @@ export default function Home() {
         <>
           <div className="modal show d-block" tabIndex={-1} role="dialog">
             <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content border border-secondary shadow-lg bg-dark text-light" style={{ borderRadius: '1rem', overflow: 'hidden' }}>
+              <div className="modal-content border border-secondary shadow-lg bg-dark text-light" style={{ borderRadius: '4px', overflow: 'hidden' }}>
                 <div className="modal-header bg-dark-subtle text-white p-3 border-bottom border-secondary">
                   <div className="d-flex align-items-center gap-2">
-                    <div className="bg-warning text-dark rounded-circle p-1.5 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px' }}>
+                    <div className="rounded-1 p-1.5 d-flex align-items-center justify-content-center text-white" style={{ width: '32px', height: '32px', backgroundColor: '#A05601' }}>
                       <i className="bi bi-exclamation-triangle-fill fs-6"></i>
                     </div>
                     <h4 className="modal-title h6 fw-bold mb-0">Ajuste de Horário Necessário</h4>
