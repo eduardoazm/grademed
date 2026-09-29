@@ -77,9 +77,10 @@ grademed/
 O sistema segue o padrão de versionamento semântico (**SemVer** - `MAJOR.MINOR.PATCH`).
 
 ### Onde a versão é controlada:
-1. `package.json` -> campo `"version"` (ex: `"1.0.0"`).
+1. `package.json` -> campo `"version"` (ex: `"1.1.1"`).
 2. `lib/version.ts` -> exporta `APP_VERSION` e `RELEASE_DATE`.
-3. `app/page.tsx` -> exibe visualmente no **Cabeçalho** (ao lado do logo) e no **Rodapé** da página.
+3. `public/version.json` -> consumido pelo frontend para detecção instantânea de deploy e auto-atualização do navegador.
+4. `app/page.tsx` -> exibe visualmente no **Cabeçalho** e no **Rodapé**, além de monitorar o `version.json` para atualização automática em segundo plano e ao focar a aba.
 
 ### Como atualizar a versão:
 Sempre que novas alterações forem finalizadas para subir ao GitHub, execute um dos comandos abaixo:

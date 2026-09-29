@@ -4,6 +4,7 @@ const path = require('path');
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
 const versionFilePath = path.join(__dirname, '..', 'lib', 'version.ts');
 const packageLockPath = path.join(__dirname, '..', 'package-lock.json');
+const versionJsonPath = path.join(__dirname, '..', 'public', 'version.json');
 
 const bumpType = process.argv[2] || 'patch';
 
@@ -33,6 +34,7 @@ if (bumpType === 'major') {
 
 const newVersion = `${major}.${minor}.${patch}`;
 const today = new Date().toISOString().split('T')[0];
+const buildTimestamp = Date.now();
 
 // Update package.json
 pkg.version = newVersion;
@@ -55,5 +57,17 @@ if (fs.existsSync(packageLockPath)) {
 // Update lib/version.ts
 const versionFileContent = `export const APP_VERSION = '${newVersion}';\nexport const RELEASE_DATE = '${today}';\n`;
 fs.writeFileSync(versionFilePath, versionFileContent, 'utf-8');
+
+// Update public/version.json for client-side auto-update / cache buster
+const versionJsonContent = JSON.stringify(
+  {
+    version: newVersion,
+    releaseDate: today,
+    buildTimestamp,
+  },
+  null,
+  2
+) + '\n';
+fs.writeFileSync(versionJsonPath, versionJsonContent, 'utf-8');
 
 console.log(`Version bumped: ${currentVersion} -> ${newVersion} (${today})`);

@@ -18,6 +18,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

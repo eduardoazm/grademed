@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { APP_VERSION } from '@/lib/version';
 
 interface GridItem {
@@ -38,7 +38,7 @@ export default function Home() {
   const [modo, setModo] = useState<'intervalo' | 'quantidade'>('intervalo');
   const [horaInicio, setHoraInicio] = useState<string>('00:00');
   const [horaFim, setHoraFim] = useState<string>('00:00');
-  const [quantidadeInput, setQuantidadeInput] = useState<string>('0');
+  const [quantidadeInput, setQuantidadeInput] = useState<string>('');
   const [intervaloInput, setIntervaloInput] = useState<string>('');
   const [erro, setErro] = useState<string | null>(null);
 
@@ -47,6 +47,52 @@ export default function Home() {
 
   // Result State
   const [resumo, setResumo] = useState<ResumoData | null>(null);
+
+  // Auto-Update & Cache Buster: detecta novas versões implantadas e atualiza o navegador imediatamente
+  useEffect(() => {
+    const checkAppVersion = async () => {
+      try {
+        const res = await fetch(`/version.json?t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.version && data.version !== APP_VERSION) {
+            console.log(`Nova versão detectada: ${data.version} (atual: ${APP_VERSION}). Atualizando...`);
+            if (typeof window !== 'undefined' && 'caches' in window) {
+              const cacheKeys = await window.caches.keys();
+              await Promise.all(cacheKeys.map((key) => window.caches.delete(key)));
+            }
+            window.location.reload();
+          }
+        }
+      } catch {
+        // Silencioso em caso de erro transitório de conexão
+      }
+    };
+
+    checkAppVersion();
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        checkAppVersion();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('focus', checkAppVersion);
+    const interval = setInterval(checkAppVersion, 5 * 60 * 1000);
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('focus', checkAppVersion);
+      clearInterval(interval);
+    };
+  }, []);
 
   // Convert HH:mm to minutes
   const timeToMinutes = (timeStr: string): number => {
@@ -232,7 +278,7 @@ export default function Home() {
     setModo('intervalo');
     setHoraInicio('00:00');
     setHoraFim('00:00');
-    setQuantidadeInput('0');
+    setQuantidadeInput('');
     setIntervaloInput('');
     setErro(null);
     setResumo(null);
@@ -368,8 +414,8 @@ export default function Home() {
                             type="number"
                             id="quantidadeInput"
                             className="form-control form-control-sm fw-bold"
-                            min="0"
-                            placeholder="0"
+                            min="1"
+                            placeholder="Ex: 10"
                             value={quantidadeInput}
                             onChange={(e) => setQuantidadeInput(e.target.value)}
                             required
