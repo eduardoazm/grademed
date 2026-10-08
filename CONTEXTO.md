@@ -128,28 +128,22 @@ npm run dev
 
 ---
 
-## 7. 🚀 Deploy em Produção (Docker + Nginx Proxy Manager)
+## 7. 🚀 Deploy em Produção (GitHub Actions + GHCR + Portainer)
 
-A aplicação está configurada para deploy via Docker:
+Inspirado no fluxo de alta performance do **TrackIT**, a compilação pesada do Next.js agora é realizada nos servidores do **GitHub** via GitHub Actions, e não mais na VPS do usuário.
 
 ### Arquitetura de Produção:
-1. **Dockerfile:** Usa multi-stage build:
-   - Estágio 1 (`builder`): Node.js 20 Alpine instala dependências e roda `npm run build`, gerando os arquivos estáticos na pasta `/app/out`.
-   - Estágio 2 (`runner`): Nginx Alpine copia os arquivos de `/app/out` para `/usr/share/nginx/html` e aplica `nginx.conf`.
+1. **GitHub Actions (`.github/workflows/docker-publish.yml`):**
+   - Ao fazer push na branch `main`, o GitHub compila a imagem multi-arch (`linux/amd64` e `linux/arm64`) usando cache de alta velocidade (`type=gha`).
+   - Publica automaticamente a imagem no **GitHub Container Registry** (`ghcr.io/eduardoazm/grademed:latest` e com a tag da versão `v1.2.0`).
 2. **docker-compose.yml:**
    - Serviço: `grademed`
+   - Imagem: `ghcr.io/eduardoazm/grademed:${APP_VERSION:-latest}`
    - Expõe a porta `80` internamente.
-   - Conecta-se à rede Docker externa `npm_default` para ser gerenciado pelo Nginx Proxy Manager.
-
-### Procedimento para Deploy / Atualização no Servidor:
-```bash
-# 1. Puxar as novidades do repositório
-git pull origin main
-
-# 2. Reconstruir e subir o container atualizado
-docker compose down
-docker compose up -d --build
-```
+   - Conecta-se às redes `npm_default` e `network_proxy` para integração imediata com o Nginx Proxy Manager.
+3. **Portainer (Atualização Instantânea em ~5 segundos):**
+   - Na Stack do Portainer, basta clicar em **Update the stack** com a opção **"Re-pull image and redeploy"** marcada.
+   - O Portainer apenas baixa as camadas prontas do `ghcr.io` e recria o container em poucos segundos, com zero consumo de CPU/RAM na VPS.
 
 ---
 

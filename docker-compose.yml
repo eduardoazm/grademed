@@ -3,7 +3,7 @@ version: "3.9"
 services:
   grademed:
     container_name: grademed
-    build: .
+    image: ghcr.io/eduardoazm/grademed:${APP_VERSION:-latest}
     restart: unless-stopped
 
     expose:
@@ -11,7 +11,10 @@ services:
 
     networks:
       - npm_default
+      - network_proxy
 
 networks:
   npm_default:
+    external: true
+  network_proxy:
     external: true

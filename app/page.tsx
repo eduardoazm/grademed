@@ -94,6 +94,17 @@ export default function Home() {
     };
   }, []);
 
+  // Tecla ESC para cancelar modal de ajuste de horário mantendo parâmetros
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && modalPending) {
+        setModalPending(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalPending]);
+
   // Convert HH:mm to minutes
   const timeToMinutes = (timeStr: string): number => {
     if (!timeStr || !timeStr.includes(':')) return 0;
@@ -642,16 +653,32 @@ export default function Home() {
       {/* CONFIRMATION MODAL */}
       {modalPending && (
         <>
-          <div className="modal show d-block" tabIndex={-1} role="dialog">
+          <div
+            className="modal show d-block"
+            tabIndex={-1}
+            role="dialog"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setModalPending(null);
+              }
+            }}
+          >
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content border border-secondary shadow-lg bg-dark text-light" style={{ borderRadius: '4px', overflow: 'hidden' }}>
-                <div className="modal-header bg-dark-subtle text-white p-3 border-bottom border-secondary">
+                <div className="modal-header bg-dark-subtle text-white p-3 border-bottom border-secondary d-flex align-items-center justify-content-between">
                   <div className="d-flex align-items-center gap-2">
                     <div className="rounded-1 p-1.5 d-flex align-items-center justify-content-center text-white" style={{ width: '32px', height: '32px', backgroundColor: '#A05601' }}>
                       <i className="bi bi-exclamation-triangle-fill fs-6"></i>
                     </div>
                     <h4 className="modal-title h6 fw-bold mb-0">Ajuste de Horário Necessário</h4>
                   </div>
+                  <button
+                    type="button"
+                    className="btn-close btn-close-white"
+                    aria-label="Cancelar operação"
+                    title="Cancelar"
+                    onClick={() => setModalPending(null)}
+                  ></button>
                 </div>
                 <div className="modal-body p-3 fs-6 text-light" style={{ whiteSpace: 'pre-line' }}>
                   {modalPending.mensagemText}
@@ -675,7 +702,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="modal-backdrop fade show"></div>
+          <div className="modal-backdrop fade show" onClick={() => setModalPending(null)}></div>
         </>
       )}
     </main>
